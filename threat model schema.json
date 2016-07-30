@@ -1,0 +1,207 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "http://openbitcoinprivacyproject.org/threatmodel_v3#",
+    "title": "OBPP Threat Model V3",
+    "description": "A threat model specification",
+    "type": "object",
+    "required": [ "name", "description", "attackers", "countermeasures", "criteria" ],
+    "properties": {
+        "name": {
+            "description": "The name of the threat model",
+            "type": "string",
+            "minLength": 1
+        },
+        "description": {
+            "description": "A description of the threat model.",
+            "type": "string",
+            "minLength": 1
+        },
+        "attackers": {
+            "description": "A list of attackers in the threat model",
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+                "type": "object",
+                "required": [ "numeral", "name", "weight" ],
+                "properties": {
+                    "numeral": {
+                        "description": "A unique uppercase Roman numeral that identifies this attacker, such as 'I'",
+                        "type": "string",
+                        "minLength": 1,
+                        "pattern": "^M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$"
+                    },
+                    "name": {
+                        "description": "Unique name for this attacker",
+                        "type": "string"
+                    },
+                    "weight": {
+                        "description": "Weight assigned to attacker compared to other attackers.",
+                        "type": "integer",
+                        "minimum": 0
+                    },
+                    "attacks": {
+                        "description": "Attacks performed by attackers",
+                        "type": "array",
+                        "minItems": 1,
+                        "uniqueItems": true,
+                        "items": {
+                            "type": "object",
+                            "required": [ "numeral", "name", "weight" ],
+                            "properties": {
+                                "numeral": {
+                                    "description": "Unique uppercase letter or letters that identifies this attack, such as 'A'",
+                                    "type": "string",
+                                    "minLength": 1,
+                                    "pattern": "^[A-Z]+$"
+                                },
+                                "name": {
+                                    "description": "Unique name for this attack",
+                                    "type": "string"
+                                },
+                                "weight": {
+                                    "description": "Weight assigned to this attack compared to other attacks under this particular attacker.",
+                                    "type": "integer",
+                                    "minimum": 0
+                                },
+                                "countermeasures": {
+                                    "description": "A countermeasure that partially or wholly mitigates an attack",
+                                    "type": "array",
+                                    "minItems": 1,
+                                    "uniqueItems": true,
+                                    "items": {
+                                        "type": "object",
+                                        "required": [ "numeral", "id", "effectiveness" ],
+                                        "properties": {
+                                            "numeral": {
+                                                "description": "Unique number that identifies this countermeasure, such as '1'",
+                                                "type": "string",
+                                                "pattern": "^[1-9][0-9]*$"
+                                            },
+                                            "effectiveness": {
+                                                "description": "A decimal expressing the percentage which the countermeasure defends against an attack if successfully implemented.",
+                                                "type": "number",
+                                                "minimum": 0,
+                                                "maximum": 1
+                                            },
+                                            "identifier": {
+                                                "description": "A unique string that identifies a single countermeasure that may be common to multiple attacks in one or more attack categories",
+                                                "type": "string",
+                                                "pattern": "^[a-zA-Z0-9_\\-]+$"
+                                            },
+                                            "criteria-groups": {
+                                                "type": "array",
+                                                "uniqueItems": true,
+                                                "items": {
+                                                    "$ref": "#/definitions/criteria-group"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "countermeasures": {
+            "description": "A complete list of countermeasures against attacks in the threat model",
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+                "type": "object",
+                "required": [ "id", "description" ],
+                "properties": {
+                    "id": {
+                        "description": "A unique string identifying this countermeasure.",
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "description": {
+                        "description": "A human-readable description of this countermeasure.",
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "comment": {
+                        "description": "An optional, human-readable string explaining more about this countermeasure.",
+                        "type": "string",
+                        "minLength": 1
+                    }
+                }
+            }
+        },
+        "criteria": {
+            "description": "A complete list of criteria for satisfying countermeasures",
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": {
+                "type": "object",
+                "required": [ "id", "description" ],
+                "properties": {
+                    "id": {
+                        "description": "A unique string identifying this criterion.",
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "description": {
+                        "description": "A human-readable description of this criterion.",
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "comment": {
+                        "description": "An optional, human-readable string explaining more about this criterion.",
+                        "type": "string",
+                        "minLength": 1
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "criteria-group": {
+            "description": "A group containing criteria and/or child criteria-groups",
+            "properties": {
+                "criteria": {
+                    "description": "A list of criteria that satisfy this criteria-group. The effectiveness of each applicable criterion is summed to a maximum of 100% for this criteria-group.",
+                    "type": "array",
+                    "items": {
+                        "description": "A criterion for how successfully a countermeasure has been implemented.",
+                        "type": "object",
+                        "properties": {
+                            "numeral": {
+                                "description": "Unique lowercase letter or letters that identifies this category, such as 'a'",
+                                "type": "string",
+                                "minLength": 1,
+                                "pattern": "^[a-z]+$"
+                            },
+                            "id": {
+                                "description": "A unique string identifying this countermeasure that MUST match an id of a criterion object listed in the document's 'criteria' array.",
+                                "type": "string",
+                                "minLength": 1
+                            },
+                            "description": {
+                                "description": "Summary of the criterion",
+                                "type": "string"
+                            },
+                            "effectiveness": {
+                                "description": "A decimal expressing the percentage which the criterion satisfies a countermeasure if successfully implemented.",
+                                "type": "number",
+                                "minimum": 0,
+                                "maximum": 1
+                            }
+                        }
+                    }
+                },
+                "criteria-groups": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/criteria-group"
+                    }
+                }
+            }
+        }
+    }
+}
