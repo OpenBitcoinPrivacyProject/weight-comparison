@@ -1,0 +1,2344 @@
+{
+    "name": "Bitcoin Wallet Privacy Threat Model",
+    "description": "This document outlines the OBPP threat model for Bitcoin wallet clients protecting user privacy.",
+    "attackers": [
+        {
+            "numeral": "I",
+            "name": "Blockchain observer",
+            "weight": 0,
+            "nonce-id": "75691811529d313c64def27e364305c39108afe5ebe8d0bf64f75df08860aae5",
+            "attacks": [
+                {
+                    "numeral": "A",
+                    "name": "Link transactions to a single entity based on all of them containing inputs with a common address",
+                    "weight": 0,
+                    "nonce-id": "f1b785f2cb70dd52a08191529e73940554b1894ef3e0c9774d26035e013ee41a",
+                    "countermeasures": [
+                        {
+                            "numeral": "1",
+                            "id": "OBPPV3/CM01",
+                            "description": "Avoid reuse of identifiable script elements",
+                            "effectiveness": 0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR01",
+                                            "description": "Number of clicks required to deviate from the default receiving functionality and generate a new non-ECDH receiving address for an existing wallet",
+                                            "effectiveness": 0
+                                        },
+                                        {
+                                            "numeral": "b",
+                                            "id": "OBPPV3/CR02",
+                                            "description": "Number of clicks required by user to generate a ECDH receiving address (BIP 63 or BIP 47), from the default window/authenticated home page",
+                                            "effectiveness": 0
+                                        },
+                                        {
+                                            "numeral": "c",
+                                            "id": "OBPPV3/CR03",
+                                            "description": "Non-ECDH receiving addresses are hidden from the default Receive worflow screens once they have been used",
+                                            "effectiveness": 0
+                                        },
+                                        {
+                                            "numeral": "d",
+                                            "id": "OBPPV3/CR04",
+                                            "description": "Preemptively indicates a loss of privacy when user elects to receive funds at a previously-used non-ECDH address, or prohibits this operation entirely",
+                                            "effectiveness": 0
+                                        },
+                                        {
+                                            "numeral": "e",
+                                            "id": "OBPPV3/CR05",
+                                            "description": "Number of clicks required to deviate from the default change functionality and receive change at a newly generated address",
+                                            "effectiveness": 0
+                                        },
+                                        {
+                                            "numeral": "f",
+                                            "id": "OBPPV3/CR07",
+                                            "description": "Change addresses are hidden from the normal receiving workflow by default to discourage using them as receiving addresses",
+                                            "effectiveness": 0
+
+                                        },
+                                        {
+                                            "numeral": "g",
+                                            "id": "OBPPV3/CR08",
+                                            "description": "Preemptively indicates a loss of privacy when user elects to reuse change addresses as receiving addresses, or prohibits this operation entirely",
+                                            "effectiveness": 0
+                                        },
+                                        {
+                                            "numeral": "h",
+                                            "id": "OBPPV3/CR16",
+                                            "description": "Warns user when sending to a non-ECDH address that the user has sent to before",
+                                            "effectiveness": 0
+                                        },
+                                        {
+                                            "numeral": "i",
+                                            "id": "OBPPV3/CR17",
+                                            "description": "Warns user when sending to a non-ECDH address that has received deposits from any source",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "numeral": "B",
+                    "name": "Link outputs in a transaction to a single entity by detecting which output is a change output",
+                    "weight": 0,
+                    "nonce-id": "992616b5f39e8ee98e07026f40798b002307e741ff6e8343f2a1bc964302f173",
+                    "countermeasures": [
+                        {
+                            "numeral": "1",
+                            "id": "OBPPV3/CM02",
+                            "description": "Randomize the position of the change output(s) in the output list",
+                            "effectiveness": 0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR10",
+                                            "description": "Inputs and outputs are ordered in a deterministic manner based on criteria other than the status of outputs as spends or change (BIP 69)",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "numeral": "2",
+                            "id": "OBPPV3/CM03",
+                            "description": "Select inputs such that the amount of change in the transaction is close to the size of the desired spend",
+                            "effectiveness": 0
+                        },
+                        {
+                            "numeral": "3",
+                            "id": "OBPPV3/CM04",
+                            "description": "Use multiple change outputs, and intentionally set the value of some outputs to values that resemble plausible spends",
+                            "effectiveness": 0,
+                            "criteria-groups": []
+                        },
+                        {
+                            "numeral": "4",
+                            "id": "OBPPV3/CM01",
+                            "description": "Avoid reuse of identifiable script elements",
+                            "effectiveness": 0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR01",
+                                            "description": "Number of clicks required to deviate from the default receiving functionality and generate a new non-ECDH receiving address for an existing wallet",
+                                            "effectiveness": 0,
+                                            "comment": "A reused receiving address may help identify which address is for change"
+                                        },
+                                        {
+                                            "numeral": "b",
+                                            "id": "OBPPV3/CR02",
+                                            "description": "Number of clicks required by user to generate a ECDH receiving address (BIP 63 or BIP 47), from the default window/authenticated home page",
+                                            "effectiveness": 0,
+                                            "comment": "A reused receiving address may help identify which address is for change"
+                                        },
+                                        {
+                                            "numeral": "c",
+                                            "id": "OBPPV3/CR03",
+                                            "description": "Non-ECDH receiving addresses are hidden from the default Receive worflow screens once they have been used",
+                                            "effectiveness": 0,
+                                            "comment": "A reused receiving address may help identify which address is for change"
+                                        },
+                                        {
+                                            "numeral": "d",
+                                            "id": "OBPPV3/CR04",
+                                            "description": "Preemptively indicates a loss of privacy when user elects to receive funds at a previously-used non-ECDH address, or prohibits this operation entirely",
+                                            "effectiveness": 0,
+                                            "comment": "A reused receiving address may help identify which address is for change"
+                                        },
+                                        {
+                                            "numeral": "e",
+                                            "id": "OBPPV3/CR05",
+                                            "description": "Number of clicks required to deviate from the default change functionality and receive change at a newly generated address",
+                                            "effectiveness": 0,
+                                            "comment": "A reused receiving address may help identify which address is for change"
+                                        },
+                                        {
+                                            "numeral": "f",
+                                            "id": "OBPPV3/CR07",
+                                            "description": "Change addresses are hidden from the normal receiving workflow by default to discourage using them as receiving addresses",
+                                            "effectiveness": 0
+
+                                        },
+                                        {
+                                            "numeral": "g",
+                                            "id": "OBPPV3/CR08",
+                                            "description": "Preemptively indicates a loss of privacy when user elects to reuse change addresses as receiving addresses, or prohibits this operation entirely",
+                                            "effectiveness": 0
+                                        },
+                                        {
+                                            "numeral": "h",
+                                            "id": "OBPPV3/CR16",
+                                            "description": "Warns user when sending to a non-ECDH address that the user has sent to before",
+                                            "effectiveness": 0
+                                        },
+                                        {
+                                            "numeral": "i",
+                                            "id": "OBPPV3/CR17",
+                                            "description": "Warns user when sending to a non-ECDH address that has received deposits from any source",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "numeral": "5",
+                            "id": "OBPPV3/CM05",
+                            "description": "Use standardized ordering of inputs and outputs",
+                            "effectiveness": 0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR10",
+                                            "description": "Inputs and outputs are ordered in a deterministic manner based on criteria other than the status of outputs as spends or change (BIP 69)",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "numeral": "6",
+                            "id": "OBPPV3/CM06",
+                            "description": "Avoid routinely creating outputs that are identifiable by their size or script",
+                            "effectiveness": 0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR23",
+                                            "description": "Avoids creating recurring transactions with outputs of a known value or to a known non-ECDH address",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "numeral": "7",
+                            "id": "OBPPV3/CM07",
+                            "description": "Only create transactions which are compliant with BIP-62",
+                            "effectiveness": 0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR13",
+                                            "description": "All transactions created by the wallet are compliant with BIP 62",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "numeral": "8",
+                            "id": "OBPPV3/CM08",
+                            "description": "Calculate fees using a method which is not recognizably unique to a particular client",
+                            "effectiveness": 0
+                        },
+                        {
+                            "numeral": "9",
+                            "id": "OBPPV3/CM09",
+                            "description": "Create the transaction in such a way that provides multiple possible matching sets between inputs and the user's change output(s)",
+                            "effectiveness": 0
+                        }
+                    ]
+                },
+                {
+                    "numeral": "C",
+                    "name": "Link outputs to a single entity based on them all being included as inputs in the same transaction",
+                    "weight": 0,
+                    "nonce-id": "f7e2c15df5f10ed4c459e5d1db91201c5da16d11d43eca057f0df5111df20ff7",
+                    "countermeasures": [
+                        {
+                            "numeral": "1",
+                            "id": "OBPPV3/CM10",
+                            "description": "Avoid using inputs from different addresses in the same transaction",
+                            "effectiveness": 0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR15",
+                                            "description": "Outside of a mixing transaction, preemptively indicates a loss of privacy when merging inputs from different addresses in the same transaction",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "numeral": "2",
+                            "id": "OBPPV3/CM11",
+                            "description": "Use mixing when sending transactions, and make non-mixed transactions resemble mixed transactions",
+                            "effectiveness": 0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR09",
+                                            "description": "When an outgoing transaction must merge inputs, and when mixing is not being used, the transaction constructed in a way that plausibly resembles a mixing transaction",
+                                            "effectiveness": 0
+                                        },
+                                        {
+                                            "numeral": "b",
+                                            "id": "OBPPV3/CR18",
+                                            "description": "Number of clicks required by user for inputs/outputs to be mixed with one or more other users",
+                                            "effectiveness": 0
+                                        },
+                                        {
+                                            "numeral": "c",
+                                            "id": "OBPPV3/CR19",
+                                            "description": "Average number of other users whose funds are mixed with the client user's when sending through a mixing process",
+                                            "effectiveness": 0
+                                        },
+                                        {
+                                            "numeral": "d",
+                                            "id": "OBPPV3/CR20",
+                                            "description": "Mixing transactions are constructed in a manner that makes them indistinguishable from non-mixing transactions",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "numeral": "3",
+                            "id": "OBPPV3/CM12",
+                            "description": "Use the same type of script used for change output as for the desired spend when creating transactions",
+                            "effectiveness": 0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR06",
+                                            "description": "Produces P2SH change addresses when one or more of the spend outputs in a transaction is P2SH",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "numeral": "4",
+                            "id": "OBPPV3/CM09",
+                            "description": "Create the transaction in such a way that provides multiple possible matching sets between inputs and the user's change output(s)",
+                            "effectiveness": 0
+                        }
+                    ]
+                },
+                {
+                    "numeral": "D",
+                    "name": "Link identities by observing that addresses associated with both identities are used as inputs in the same transaction",
+                    "weight": 0,
+                    "nonce-id": "e380df0f2caee40eb502a57f1791a8d1de52ce18f754ec29f2fc283c4d26e1ce",
+                    "countermeasures": [
+                        {
+                            "numeral": "1",
+                            "id": "OBPPV3/CM13",
+                            "description": "Avoid constructing transactions that contain inputs from more than one identity/account",
+                            "effectiveness": 0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR44",
+                                            "description": "Number of clicks to create a new identity container from the home screen of an existing identity container",
+                                            "effectiveness": 0
+                                        },
+                                        {
+                                            "numeral": "b",
+                                            "id": "OBPPV3/CR46",
+                                            "description": "Avoids creating transactions which contain inputs from different identity containers, except optionally if the user has intentionally overridden this behavior",
+                                            "effectiveness": 0
+                                        },
+                                        {
+                                            "numeral": "c",
+                                            "id": "OBPPV3/CR47",
+                                            "description": "Visually indicates when inputs from different identity containers are merged before the transaction is broadcast, or prohibits this operation entirely",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "numeral": "E",
+                    "name": "Derive the type of wallet used to create a transaction by observing idiosyncrasies in the manner in which the transaction was composed, such as input/output ordering, output or fee size, number or size of inputs, or script composition",
+                    "weight": 0,
+                    "nonce-id": "c2913473dfdef786bdbafcc4b3022852a13f9ecf90aedd41196d8fa5466f1613",
+                    "countermeasures": [
+                        {
+                            "numeral": "1",
+                            "id": "OBPPV3/CM05",
+                            "description": "Use standardized ordering of inputs and outputs",
+                            "effectiveness": 0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR10",
+                                            "description": "Inputs and outputs are ordered in a deterministic manner based on criteria other than the status of outputs as spends or change (BIP 69)",
+                                            "effectiveness": 0
+                                        },
+                                        {
+                                            "numeral": "b",
+                                            "id": "OBPPV3/CR11",
+                                            "description": "Order inputs and outputs via a methodology common to multiple wallets",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "numeral": "2",
+                            "id": "OBPPV3/CM06",
+                            "description": "Avoid routinely creating outputs that are identifiable by their size or script",
+                            "effectiveness": 0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR22",
+                                            "description": "Number of clicks to opt out of creating recurring transactions, such as for donations to the wallet provider",
+                                            "effectiveness": 0
+                                        },
+                                        {
+                                            "numeral": "b",
+                                            "id": "OBPPV3/CR23",
+                                            "description": "Avoids creating recurring transactions with outputs of a known value or to a known non-ECDH address",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "numeral": "3",
+                            "id": "OBPPV3/CM07",
+                            "description": "Only create transactions which are compliant with BIP-62",
+                            "effectiveness": 0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR13",
+                                            "description": "All transactions created by the wallet are compliant with BIP 62",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "numeral": "4",
+                            "id": "OBPPV3/CM08",
+                            "description": "Calculate fees using a method which is not recognizably unique to a particular client",
+                            "effectiveness": 0
+                        }
+                    ]
+                },
+                {
+                    "numeral": "F",
+                    "name": "Link related outputs and transactions by observing the m and n parameters of multisig transactions",
+                    "weight": 0,
+                    "nonce-id": "1e772699fb8f43f7e5f82899c32b5db21939965223f29391f057b0063056d241",
+                    "countermeasures": [
+                        {
+                            "numeral": "1",
+                            "id": "OBPPV3/CM14",
+                            "description": "Sign transactions using techniques that do not reveal the number of signers or keys involved in producing the signature",
+                            "effectiveness": 0
+                        }
+                    ]
+                },
+                {
+                    "numeral": "G",
+                    "name": "Correlate transactions with out-of-band behavior by recording the time at which transactions are included in a block",
+                    "weight": 0,
+                    "nonce-id": "76b0b33bbb8f2cd3bf86de1d4c14b178203af5fd7b57f6bd3f66b317590fb384",
+                    "countermeasures": [
+                        {
+                            "numeral": "1",
+                            "id": "OBPPV3/CM15",
+                            "description": "Introduce random delays before introducing new transactions to the network",
+                            "effectiveness": 0
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "numeral": "II",
+            "name": "Network observer",
+            "weight": 0,
+            "nonce-id": "7ee62566e6261c196c34158739d46e26a6837da2b9af9f0c39f4d8f3a34fbe57",
+            "attacks": [
+                {
+                    "numeral": "A",
+                    "name": "Link addresses belonging to a single user by observing information leaked by the wallet in the process of obtaining its relevant blockchain data from the network",
+                    "weight": 0,
+                    "nonce-id": "b3e3946042646148f10905084fa2e00d8344e1a9c1acace5e9d3db2d4b339805",
+                    "countermeasures": [
+                        {
+                            "numeral": "1",
+                            "id": "OBPPV3/CM16",
+                            "description": "Obtain relevant blockchain data without making queries to other network participants",
+                            "effectiveness": 0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR25",
+                                            "description": "Balance information is obtained from a local copy of the blockchain",
+                                            "effectiveness": 1.0
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "numeral": "2",
+                            "id": "OBPPV3/CM61",
+                            "description": "Perform multiple queries for blockchain data in a way that makes it difficult to correlate the queries with one another",
+                            "effectiveness": 0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR26",
+                                            "description": "Balance information is obtained by making queries to other network participants that do not include multiple addresses in a specific connection context",
+                                            "effectiveness": 0
+                                        },
+                                        {
+                                            "numeral": "b",
+                                            "id": "OBPPV3/CR33",
+                                            "description": "Avoids including addresses from multiple identity containers in the same balance query",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                },
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "c",
+                                            "id": "OBPPV3/CR27",
+                                            "description": "Balance information is obtained via a method that matches a fraction of the blockchain beyond the addresses belonging to the wallet",
+                                            "effectiveness": 1.0,
+                                            "comment": "Score for this criterion should be the mean fraction of the blockchain returned in queries, where downloading the entire blockchain is a perfect score"
+                                        },
+                                        {
+                                            "numeral": "d",
+                                            "id": "OBPPV3/CR33",
+                                            "description": "Avoids including addresses from multiple identity containers in the same balance query",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "numeral": "B",
+                    "name": "Link addresses belonging to a single user by observing source IP address for relevant blockchain data queries",
+                    "weight": 0,
+                    "nonce-id": "07a90dfdced30f03b5777fe42a5d1c33b77c4139b621627cb36221ca2a00fc81",
+                    "countermeasures": [
+                        {
+                            "numeral": "1",
+                            "id": "OBPPV3/CM19",
+                            "description": "Connect to the source of relevant blockchain data in a manner that does not leak the IP address of the requestor",
+                            "effectiveness": 0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR24",
+                                            "description": "Number of clicks required by user to to obtain balance information without leaking their machine identity over the network",
+                                            "effectiveness": 0
+                                        },
+                                        {
+                                            "numeral": "b",
+                                            "id": "OBPPV3/CR29",
+                                            "description": "Provides a visual indication if the balance information is not being obtained through an anonymizing network, including IP address information",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "numeral": "C",
+                    "name": "Link addresses belonging to a single user by observing that multiple transactions enter the network from an origin point likely to belong to a single user",
+                    "weight": 0,
+                    "nonce-id": "9e8d656ba62759f3afe0534b7bd7c2bfd060755ef24a306d6b4f7801bb265f33",
+                    "countermeasures": [
+                        {
+                            "numeral": "1",
+                            "id": "OBPPV3/CM20",
+                            "description": "Route outgoing transactions via a method that does not reveal the IP address of the sender",
+                            "effectiveness": 0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR30",
+                                            "description": "Number of clicks required by user to route outgoing transactions through an anonymizing network",
+                                            "effectiveness": 0
+                                        },
+                                        {
+                                            "numeral": "b",
+                                            "id": "OBPPV3/CR32",
+                                            "description": "Client provides a visual indication if outgoing transactions are not being routed through an anonymizing network, including IP address information",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "numeral": "2",
+                            "id": "OBPPV3/CM21",
+                            "description": "Broadcast outgoing transactions in a manner that causes them to appear to have a network origin distinct from previously-broadcast transactions",
+                            "effectiveness": 0
+                        }
+                    ]
+                },
+                {
+                    "numeral": "D",
+                    "name": "Link a transaction's input address(es) to a specific IP address by observing the first relay of a broadcasted transaction",
+                    "weight": 0,
+                    "nonce-id": "96d8d118a8a65aa8dbad15dbfd78365f7cda16e4bfa7ceeabdc1b5cd7e92a2f9",
+                    "countermeasures": [
+                        {
+                            "numeral": "1",
+                            "id": "OBPPV3/CM11",
+                            "description": "Use mixing when sending transactions, and make non-mixed transactions resemble mixed transactions",
+                            "effectiveness": 0
+                        },
+                        {
+                            "numeral": "2",
+                            "id": "OBPPV3/CM20",
+                            "description": "Route outgoing transactions via a method that does not reveal the IP address of the sender",
+                            "effectiveness": 0
+                        }
+                    ]
+                },
+                {
+                    "numeral": "E",
+                    "name": "Reduce the false positive rate of filters by comparing how the filters received from a single client change over time",
+                    "weight": 0,
+                    "nonce-id": "7df9676792e7439f391c641a206ed4505d6bdf7b5c43f4c8b1dcecf4776ebc75",
+                    "countermeasures": [
+                        {
+                            "numeral": "1",
+                            "id": "OBPPV3/CM22",
+                            "description": "If a filter requires an update, send the new filter to a different peer than the peer which has the old filter",
+                            "effectiveness": 0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR28",
+                                            "description": "If balance information is obtained via querying more than one address in a given query, a separate connection context is used for each unique query",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "numeral": "F",
+                    "name": "Reduce the false positive rate of filters by comparing the transactions sent by a client with the filter they have sent",
+                    "weight": 0,
+                    "nonce-id": "b6a0a2166b464141545767985b91bc7f3d4588ccf2e289debb156495e66b0c43",
+                    "countermeasures": [
+                        {
+                            "numeral": "1",
+                            "id": "OBPPV3/CM23",
+                            "description": "Route outgoing transactions through a different route than through the peer which is providing relevant blockchain data",
+                            "effectiveness": 0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR31",
+                                            "description": "Outgoing transactions are routed through a different entry point into the network than the source of balance information",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "numeral": "G",
+                    "name": "Link different identities based on a bloom/prefix filter or other query that matches blockchain data associated with multiple identities",
+                    "weight": 0,
+                    "nonce-id": "140539e51bfb8cf15674b525c4f10221f6c6a2e505214d026b741d0ae3fcacf3",
+                    "countermeasures": [
+                        {
+                            "numeral": "1",
+                            "id": "OBPPV3/CM24",
+                            "description": "Use separate filters, provided to different peers, for each identity",
+                            "effectiveness": 0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR33",
+                                            "description": "Avoids including addresses from multiple identity containers in the same balance query",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "numeral": "H",
+                    "name": "Link different identities by observing that the same IP address is sending outgoing transactions associated with multiple identities",
+                    "weight": 0,
+                    "nonce-id": "3629b41cec638da990ebdea750f826092fe14bcecb82368c7c122fc0e54dccd6",
+                    "countermeasures": [
+                        {
+                            "numeral": "1",
+                            "id": "OBPPV3/CM25",
+                            "description": "Use separate routes for outgoing transactions associated with each identity",
+                            "effectiveness": 0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR34",
+                                            "description": "Avoids broadcasting outgoing transactions from different identity containers via the same connection context",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "numeral": "I",
+                    "name": "Temporally link transactions to a known IP address via side channel attacks based on wallet behavior",
+                    "weight": 0,
+                    "nonce-id": "43100ea35b524b5aaa340230718db1c17e2afe96191f3a2a312c1cff46fbb513",
+                    "countermeasures": [
+                        {
+                            "numeral": "1",
+                            "id": "OBPPV3/CM26",
+                            "description": "Avoid leaking information about user behavior via observable network traffic",
+                            "effectiveness": 0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR35",
+                                            "description": "The backup process avoids leaking information about wallet addresses",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "numeral": "2",
+                            "id": "OBPPV3/CM27",
+                            "description": "Avoid leaking information about recipients in transaction via an external network lookup",
+                            "effectiveness": 0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR36",
+                                            "description": "Wallet avoids leaking information about recipients via an external identity lookup",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "numeral": "J",
+                    "name": "Derive the type of wallet used to create a transaction by passively observing idiosyncrasies in the interactive behaviour of the wallet",
+                    "weight": 0,
+                    "nonce-id": "4fdc28522ebe1933607a7714e280ce75284f0641266360bc0df9d19c9fd2e7ab",
+                    "countermeasures": [
+                        {
+                            "numeral": "1",
+                            "id": "OBPPV3/CM28",
+                            "description": "Avoid using one distinctive user agent when connecting to the Bitcoin network",
+                            "effectiveness": 0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR38",
+                                            "description": "The wallet connects to the network using an unremarkable user agent",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                },
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "b",
+                                            "id": "OBPPV3/CR39",
+                                            "description": "The wallet connects to the network using a random user agent, from a set of unremarkable user agents, for each connection",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                }
+                            ],
+                            "comment": "A wallet can use one unremarkable user agent or several, but can't do both at the same time."
+                        },
+                        {
+                            "numeral": "2",
+                            "id": "OBPPV3/CM29",
+                            "description": "Avoid using a non-Bitcoin network protocol that leaks information about the type of client in use",
+                            "effectiveness": 0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR37",
+                                            "description": "The wallet avoids observably connecting to a known endpoint, such as a wallet provider's domain",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "numeral": "K",
+                    "name": "Temporally correlate activity of a specific wallet across different connection sessions by observing idiosyncratic client wallet behavior which acts as a unique fingerprint",
+                    "weight": 0,
+                    "nonce-id": "277ec132f4cb4edc1cffc0905bde99fe5d6453f368661ff9aad87d1fca34662a",
+                    "countermeasures": [
+                        {
+                            "numeral": "1",
+                            "id": "OBPPV3/CM30",
+                            "description": "Avoid communicating state-based information to other entities which could be used to uniquely identify the client",
+                            "effectiveness": 0
+                        }
+                    ]
+                },
+                {
+                    "numeral": "L",
+                    "name": "Correlate an IP address to a likely transaction participant by monitoring for queries (to a block explorer, etc.) about specific recent transactions",
+                    "weight": 0,
+                    "nonce-id": "d0148c236ec02d067a222879531b75dab955b292c738ea95a107791076754983",
+                    "countermeasures": [
+                        {
+                            "numeral": "1",
+                            "id": "OBPPV3/CM31",
+                            "description": "Avoid performing queries to third party services regarding specific transactions in a manner which reveals the IP address of the user",
+                            "effectiveness": 0
+                        }
+                    ]
+                },
+                {
+                    "numeral": "M",
+                    "name": "Perform a transport-level MITM attack on a connection between the wallet and a source of server to obtain PII and/or insert malicious code into the communication between wallet and server",
+                    "weight": 0,
+                    "nonce-id": "f8aa58958a67fdd52898976a58bd551d3acfcce13d90f288ea907b1a325c9c21",
+                    "countermeasures": [
+                        {
+                            "numeral": "1",
+                            "id": "OBPPV3/CM32",
+                            "description": "Pin the expected public key/certificate in the client to prevent successful MITM attacks",
+                            "effectiveness": 0
+                        }
+                    ]
+                },
+                {
+                    "numeral": "N",
+                    "name": "Identify an entity as a likely transaction participant by observing out-of-band notifications subsequent to a transaction generated by any participant and/or their wallet provider",
+                    "weight": 0,
+                    "nonce-id": "543ff516a3b027ec62e9a50480eb1ccc5376fedbff70b8f5fc5588c7129c9e6d",
+                    "countermeasures": [
+                        {
+                            "numeral": "1",
+                            "id": "OBPPV3/CM33",
+                            "description": "Do not transmit out-of-band notifications to a user when a transaction has been received",
+                            "effectiveness": 0
+                        },
+                        {
+                            "numeral": "2",
+                            "id": "OBPPV3/CM34",
+                            "description": "Transmit out-of-band notifications via a method that is not detectable to a network observer",
+                            "effectiveness": 0
+                        }
+                    ]
+                },
+                {
+                    "numeral": "O",
+                    "name": "Determine the change output of a transaction by observing different versions of it broadcast as part of an RBF process",
+                    "weight": 0,
+                    "nonce-id": "e737524c8112bb0b242823cf10674160ed3538f08a95dd42b64d8f491ac311d9",
+                    "countermeasures": [
+                        {
+                            "numeral": "1",
+                            "id": "OBPPV3/CM35",
+                            "description": "Avoid broadcasting more than one version of a transaction",
+                            "effectiveness": 0
+                        }
+                    ]
+                },
+                {
+                    "numeral": "P",
+                    "name": "Correlate transactions with out-of-band behavior by recording the time at which transactions enter the network",
+                    "weight": 0,
+                    "nonce-id": "f62d0ecf74cbb379fcde438a97a52d08eb79b07acde409e47b1dbcf9c814d114",
+                    "countermeasures": [
+                        {
+                            "numeral": "1",
+                            "id": "OBPPV3/CM15",
+                            "description": "Introduce random delays before introducing new transactions to the network",
+                            "effectiveness": 0
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "numeral": "III",
+            "name": "Protocol peer",
+            "weight": 0,
+            "nonce-id": "a0ef0ab855cfca6267df9f5f57c0112f16bee5340089a72f3c5482d5eef5c7ee",
+            "attacks": [
+                {
+                    "numeral": "A",
+                    "name": "Derive the type of wallet used to create a transaction by actively probing the wallet to discover idiosyncrasies in the interactive behaviour of the wallet",
+                    "weight": 0,
+                    "nonce-id": "bb54f07d484598a30263400020d013718a5015fcf26f0d7ca1f2469e00ef1286",
+                    "countermeasures": [
+
+                    ]
+                },
+                {
+                    "numeral": "B",
+                    "name": "Derive the type of wallet used to create a transaction by observing the first hop IP address",
+                    "weight": 0,
+                    "nonce-id": "9255a5774be66d0bd63992bde415a4ba781ab6a52181a5c0f18df1fac55b19c5",
+                    "countermeasures": [
+                        {
+                            "numeral": "1",
+                            "id": "OBPPV3/CM36",
+                            "description": "Broadcast outgoing transactions in a manner that is not easily correlated to the wallet provider",
+                            "effectiveness": 0
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "numeral": "IV",
+            "name": "Transaction participant",
+            "weight": 0,
+            "nonce-id": "df825110e3cb2468173fe560dc589099ccb2a00760e62e46b65203c85cfb7b3e",
+            "attacks": [
+                {
+                    "numeral": "A",
+                    "name": "Collude with other transaction participants to infer a bitcoin user's behavior based on the flow of funds from one colluding entity, to the targeted user, to another colluding entity",
+                    "weight": 0,
+                    "countermeasures": [
+                        {
+                            "numeral": "1",
+                            "id": "OBPPV3/CM37",
+                            "description": "Use multiple identities/accounts to allow funds associated with one transaction participant to be kept apart from funds associated with a different transaction participant",
+                            "effectiveness": 0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR44",
+                                            "description": "Number of clicks to create a new identity container from the home screen of an existing identity container",
+                                            "effectiveness": 0
+                                        },
+                                        {
+                                            "numeral": "b",
+                                            "id": "OBPPV3/CR45",
+                                            "description": "Number of clicks to assign an imported private key into an identity container",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "numeral": "B",
+                    "name": "Create transactions which create small outputs to previously-used addresses which tempt wallet clients with poor utxo selection and/or lack of coin control to merge inputs",
+                    "weight": 0,
+                    "nonce-id": "974b4b6ed305e4e473b51f0889275ca82a0001d512500bc2d0c816492623c3fb",
+                    "countermeasures": [
+                        {
+                            "numeral": "1",
+                            "id": "OBPPV3/CM38",
+                            "description": "Whenever an input is selected from a set of inputs with identical scripts, always include all inputs from that set in the transaction",
+                            "effectiveness": 0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR12",
+                                            "description": "When an input is selected which is part of a set of unspent outputs containing identical scripts (multiple deposits to a single address), every output in the set is added to the transaction",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "comment": "This transaction participant is involuntary with respect to the victim; the two may have no prior or following relationship aside from such 'dust' attacks."
+                },
+                {
+                    "numeral": "C",
+                    "name": "Defeat attempts by users to mix their coins by participating in mixing transactions and collecting information which can be used to map inputs to outputs in the mixing transaction",
+                    "weight": 0,
+                    "nonce-id": "b96f9b2d4f7c554cefeac028f4c06f2a31bb5e1c9944deb421ac5d47cccad6d6",
+                    "countermeasures": [
+                        {
+                            "numeral": "1",
+                            "id": "OBPPV3/CM39",
+                            "description": "Use mixing protocols which are secure against misbehavior by any participant",
+                            "effectiveness": 0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR21",
+                                            "description": "Warns the user when a proposed mix is easy to reverse",
+                                            "effectiveness": 0
+                                        },
+                                        {
+                                            "numeral": "b",
+                                            "id": "OBPPV3/CR30",
+                                            "description": "Number of clicks required by user to route outgoing transactions through an anonymizing network",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "numeral": "D",
+                    "name": "Require users to submit transactions and identification information to one or more another parties in order to complete the signing process",
+                    "weight": 0,
+                    "nonce-id": "3b0dd82cd54a5d886b92e7fc917da910a349d5b4acf86682d3c5411093362884",
+                    "countermeasures": [
+                        {
+                            "numeral": "1",
+                            "id": "OBPPV3/CM40",
+                            "description": "Do not require users to provide information to one or more other parties in order to complete the signing process in a way that allows the other parties to identify the source or destination of the transaction",
+                            "effectiveness": 0
+                        }
+                    ]
+                },
+                {
+                    "numeral": "E",
+                    "name": "Monitor the past and future behavior of a user based on receiving payment instructions from that user (such as a master xpub) which leak enough information about how other senders have paid/will pay the same recipient to identify the relevant transactions",
+                    "weight": 0,
+                    "nonce-id": "e89ea6618e35217310d840d35d851c1d2169b14300a042259089f7e195f677f2",
+                    "countermeasures": [
+                        {
+                            "numeral": "1",
+                            "id": "OBPPV3/CM41",
+                            "description": "Avoid protocols for transferring payment instructions which leak information about transactions originating from entities other than the intended sender",
+                            "effectiveness": 0
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "numeral": "V",
+            "name": "Physical adversary",
+            "weight": 0,
+            "nonce-id": "04e97e11521bc2f76a53b0c9cba0d39bc37c67f2c1f38cd63b8619815b6d085a",
+            "attacks": [
+                {
+                    "numeral": "A",
+                    "name": "Conduct physical surveillance, especially against mobile users, to get sensitive information from screen or contextually tie blockchain activity to visual activity",
+                    "weight": 0,
+                    "nonce-id": "3cfbbbd8dcded67569b1b1c38a71111579921a3c067cb01bd8011d81aeeb34c0",
+                    "countermeasures": [
+                        {
+                            "numeral": "1",
+                            "id": "OBPPV3/CM42",
+                            "description": "Provide a GUI that resembles an application other than a Bitcoin wallet",
+                            "effectiveness": 0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR50",
+                                            "description": "Number of clicks to configure the GUI to resemble a non-wallet application",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "numeral": "2",
+                            "id": "OBPPV3/CM43",
+                            "description": "Before or when displaying it, warn users about the privacy consequences of sharing data that can allow parties who will not be participants in the relevant transactions to link them to the user",
+                            "effectiveness": 0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR51",
+                                            "description": "Does not display non-ECDH addresses or transaction hashes in any form prior to the user explicitly requesting to see them",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "numeral": "B",
+                    "name": "Detect the existence of a wallet on a device",
+                    "weight": 0,
+                    "nonce-id": "8f2926c6d9443fb47d9f2a30c489d6403c2a1fcd8ce9aea6e60a89f1c43127cb",
+                    "countermeasures": [
+                        {
+                            "numeral": "1",
+                            "id": "OBPPV3/CM44",
+                            "description": "Install the application is such a way that it is not detectable unless user performs a series of actions unlikely to be duplicated by an unauthorized user",
+                            "effectiveness": 0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR57",
+                                            "description": "The wallet application is difficult to detect as being installed unless the user performs a series of actions unlikely to be duplicated by an unauthorized user",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "numeral": "2",
+                            "id": "OBPPV3/CM45",
+                            "description": "The user can easily erase the application and all its metadata if the decide to stop using the wallet or device",
+                            "effectiveness": 0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR54",
+                                            "description": "Number of clicks needed to permanently and completely erase the wallet from a device",
+                                            "effectiveness": 0
+                                        },
+                                        {
+                                            "numeral": "b",
+                                            "id": "OBPPV3/CR55",
+                                            "description": "Number of clicks needed to permanently and completely remove the wallet application from a device",
+                                            "effectiveness": 0
+                                        },
+                                        {
+                                            "numeral": "c",
+                                            "id": "OBPPV3/CR58",
+                                            "description": "When logged into the user who previously installed the wallet application or another user with default privileges, the user cannot detect that the wallet was previously installed once the application removal process is completed",
+                                            "effectiveness": 0
+                                        },
+                                        {
+                                            "numeral": "d",
+                                            "id": "OBPPV3/CR59",
+                                            "description": "The wallet deletion process eliminates all evidence that a wallet was previously installed",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "numeral": "3",
+                            "id": "OBPPV3/CM46",
+                            "description": "If user loses physical control over the device, the wallet can be deleted via remote command",
+                            "effectiveness": 0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR56",
+                                            "description": "Wallet data can be remotely deleted by the user in the event the device containing the wallet is lost or stolen",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "numeral": "4",
+                            "id": "OBPPV3/CM47",
+                            "description": "Persistent wallet data is stored in a fashion that is not identifiable as belonging to a Bitcoin wallet",
+                            "effectiveness": 0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR60",
+                                            "description": "Persistent wallet metadata is stored in a form not identifiable as belonging to a Bitcoin wallet",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "numeral": "C",
+                    "name": "Perform forensic analysis on a device, searching for sensitive information about a wallet",
+                    "weight": 0,
+                    "nonce-id": "66f0b4991fd97d00ea920c2fe216e65e3f80eacd0a3b2f0452217292a937b947",
+                    "countermeasures": [
+                        {
+                            "numeral": "1",
+                            "id": "OBPPV3/CM48",
+                            "description": "Encrypt all public keys in the wallet",
+                            "effectiveness": 0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR52",
+                                            "description": "Number of clicks to set an encryption password/PIN for wallet public keys (apart from that needed to encrypt private keys)",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "numeral": "2",
+                            "id": "OBPPV3/CM49",
+                            "description": "Encrypt all non-keypair wallet metadata",
+                            "effectiveness": 0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR53",
+                                            "description": "Number of clicks to set an encryption password/PIN for non-keypair wallet metadata (apart from that needed to encrypt private keys)",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "numeral": "VI",
+            "name": "Wallet provider",
+            "weight": 0,
+            "nonce-id": "8a1a728db8698ab5dd45cccbb0740391e4176ee1edfbd941ab454791f2e93954",
+            "attacks": [
+                {
+                    "numeral": "A",
+                    "name": "Link addresses to a user by observing their backup files",
+                    "weight": 0,
+                    "nonce-id": "cf3209064fcfef0c6d5456acc35d1f6ee371f06ac75e17287affae4c8581df66",
+                    "countermeasures": [
+                        {
+                            "numeral": "1",
+                            "id": "OBPPV3/CM50",
+                            "description": "Use strictly local wallet backups, or encrypt remote wallet backups",
+                            "effectiveness": 0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR63",
+                                            "description": "Backups can occur offline, or are encrypted client-side with data that only the user controls e.g. password",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "numeral": "B",
+                    "name": "Require personally identifying information in order to use the wallet",
+                    "weight": 0,
+                    "nonce-id": "065322c66599cf2b1cadb364d0de718caf972f39909155870039e33b47c430e7",
+                    "countermeasures": [
+                        {
+                            "numeral": "1",
+                            "id": "OBPPV3/CM51",
+                            "description": "Do not collect any personally identifying information from the user",
+                            "effectiveness": 1,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR65",
+                                            "description": "The wallet functions without requiring the user to supply Class I, Class II, or Class III personally identifying information (PII)",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                },
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "b",
+                                            "id": "OBPPV3/CR72",
+                                            "description": "The wallet functions without requiring the user to supply Class I or Class II personally identifying information (PII) such as a SSN or verified email address",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                },
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "c",
+                                            "id": "OBPPV3/CR73",
+                                            "description": "The wallet functions without requiring the user to supply Class I personally identifying information (PII) such as a SSN",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "numeral": "C",
+                    "name": "Cause the wallet to transmit usage and/or debug data back to the provider which can be used to correlate transactions to a particular user",
+                    "weight": 0,
+                    "nonce-id": "fdb38b33f31c08b6b7b26c9260e13bc38145ddaca649ee2211f2b01816235532",
+                    "countermeasures": [
+                        {
+                            "numeral": "1",
+                            "id": "OBPPV3/CM52",
+                            "description": "Only send debug information if users opt-in and are allowed to review the information before being sent",
+                            "effectiveness": 0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR66",
+                                            "description": "Number of clicks needed to disable sending telemetry data to the wallet provider (usage statistics, automatic crash reporting, etc.)",
+                                            "effectiveness": 0
+                                        },
+                                        {
+                                            "numeral": "b",
+                                            "id": "OBPPV3/CR68",
+                                            "description": "Avoids transmitting telemetry data to the provider before the user has a chance to review the information being sent",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "numeral": "2",
+                            "id": "OBPPV3/CM53",
+                            "description": "Transmit usage and/or debug data via a method that does not reveal the IP address or identity of the user",
+                            "effectiveness": 0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR67",
+                                            "description": "Number of clicks needed to ensure telemetry data is sent to the wallet provider in a manner that does not reveal the IP address of the user",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+
+                    ]
+                },
+                {
+                    "numeral": "D",
+                    "name": "Hide adverse privacy behavior from users by not releasing the source code to the wallet client",
+                    "weight": 0,
+                    "nonce-id": "bfe7905ef1ac3f8ea90d23ec3b00cc95d5983e362eaa9fcac216405f0f8eeb1b",
+                    "countermeasures": [
+                        {
+                            "numeral": "1",
+                            "id": "OBPPV3/CM54",
+                            "description": "Provide non-obfuscated source code and build tools needed for the users to compile their own versions",
+                            "effectiveness": 0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR69",
+                                            "description": "The wallet provider supplies simple instructions for building a usable binary from the source code",
+                                            "effectiveness": 0
+                                        },
+                                        {
+                                            "numeral": "b",
+                                            "id": "OBPPV3/CR70",
+                                            "description": "Non-obfuscated source code for the wallet application is available for immediate inspection",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "numeral": "E",
+                    "name": "Hide adverse privacy behavior from users by distributing binary versions of the wallet whose behavior differs from versions compiled from the public source code",
+                    "weight": 0,
+                    "nonce-id": "0fbb6308974653bc2d96223b08bd23de3845ae82f46accef5cfd06b711104a41",
+                    "countermeasures": [
+                        {
+                            "numeral": "1",
+                            "id": "OBPPV3/CM55",
+                            "description": "Provide a deterministic build system that allows users to verify that the binary version they have received was compiled from the public source code",
+                            "effectiveness": 0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR71",
+                                            "description": "A user can produce a compiled version of the application from the public source code that exactly matches the version distributed by the wallet provider",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "numeral": "F",
+                    "name": "Hide adverse privacy behavior from users by not disclosing or by misrepresenting privacy risks",
+                    "weight": 0,
+                    "nonce-id": "46dbaea6011c5b25d2ff909143b8b2ddf7f86d1dfc3420e3d9ba37bff7ef5e65",
+                    "countermeasures": [
+
+                    ]
+                }
+            ]
+        },
+        {
+            "numeral": "VII",
+            "name": "Meta attacks",
+            "weight": 0,
+            "nonce-id": "71f549e7de89e7b473bdef2ec752db09b5d0bbfc15d1c3f91860778934c53981",
+            "attacks": [
+                {
+                    "numeral": "A",
+                    "name": "Users may reuse non-ECDH addresses due to the fear of losing funds if avoiding reuse increases the risk that wallet backups will become unexpectedly invalid",
+                    "weight": 0,
+                    "nonce-id": "10ecc7158e69bb586e26d8ec61259b62bfaf09d27e565f7b2dc9c17a48c5e8a3",
+                    "countermeasures": [
+                        {
+                            "numeral": "1",
+                            "id": "OBPPV3/CM56",
+                            "description": "Use eternal backups",
+                            "effectiveness": 1,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR62",
+                                            "description": "Number of clicks needed to update an existing backup due to the creation of a new receiving or change address",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            "numeral": "2",
+                            "id": "OBPPV3/CM57",
+                            "description": "Proactively inform users when backups require an update",
+                            "effectiveness": 0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR64",
+                                            "description": "Indicates a reduction in wallet safety when backups are stale, or uses eternal backups",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "numeral": "B",
+                    "name": "Users may avoid mixing if mixing services can steal funds",
+                    "weight": 0,
+                    "nonce-id": "69297fe44d565b09b4c6292a667679f2d2cf4f13370fd9b72d0a9934364ecbbf",
+                    "countermeasures": [
+                        {
+                            "numeral": "1",
+                            "id": "OBPPV3/CM58",
+                            "description": "Use mixing methods that do not allow for theft of funds",
+                            "effectiveness": 0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR49",
+                                            "description": "Mixing is secure against theft of funds",
+                                            "effectiveness": 1
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "numeral": "C",
+                    "name": "Users may reuse non-ECDH addresses due to the overhead involved with communicating unique deposit addresses to senders",
+                    "weight": 0,
+                    "nonce-id": "fdd9873ceea6c72da38e171d4b2e930648501018c4a15e63a7acd3862ddb56dd",
+                    "countermeasures": [
+                        {
+                            "numeral": "1",
+                            "id": "OBPPV3/CM59",
+                            "description": "Use deposit addresses derived from a constant seed using ECDH (e.g. stealth addresses)",
+                            "effectiveness": 0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR02",
+                                            "description": "Number of clicks required by user to generate a ECDH receiving address (BIP 63 or BIP 47), from the default window/authenticated home page",
+                                            "effectiveness": 0
+                                        },
+                                        {
+                                            "numeral": "b",
+                                            "id": "OBPPV3/CR14",
+                                            "description": "Allows the user to send to ECDH addresses (BIP 63 or BIP 47)",
+                                            "effectiveness": 0
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+
+                },
+                {
+                    "numeral": "D",
+                    "name": "Users may opt not to use privacy networks because of the difficulty of configuring their wallet client to transmit traffic through them",
+                    "weight": 0,
+                    "nonce-id": "6127716dfc01c09589bf77d1b4de1669b17b2231483e3f9b1e8be10b6a11c6a7",
+                    "countermeasures": [
+                        {
+                            "numeral": "1",
+                            "id": "OBPPV3/CM60",
+                            "description": "Create wallets that are easily usable on operating systems with built-in Tor support",
+                            "effectiveness": 0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "OBPPV3/CR40",
+                                            "description": "Included in the latest stable version of Tails Live CD",
+                                            "effectiveness": 1.0
+                                        }
+                                    ]
+                                },
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "b",
+                                            "id": "OBPPV3/CR41",
+                                            "description": "Program and any dependencies are packaged into a single file which can be easily installed in Tails Live CD",
+                                            "effectiveness": 0.75
+                                        }
+                                    ]
+                                },
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "c",
+                                            "id": "OBPPV3/CR42",
+                                            "description": "Installation in Tails Live CD is possible, but requires multiple complex steps",
+                                            "effectiveness": 0.50
+                                        }
+                                    ]
+                                }
+                            ],
+                            "comment": "Above, we list 3 possible versions of Tails compatability which are mutually exclusive"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "countermeasures": [
+        {
+            "id": "OBPPV3/CM01",
+            "description": "Avoid reuse of identifiable script elements",
+            "comment": "This is a generalization of the idea of avoiding address reuse. Identifiable script elements include: public keys in OP_CHECKMULTISIG scripts, P2PKH addresses, P2SH addresses, etc.",
+            "nonce-id": "f85a652a3e2f2572a49db4bc5f7f5e83a5a3b325d33f467c658eac6942560ff6"
+        },
+        {
+            "id": "OBPPV3/CM02",
+            "description": "Randomize the position of the change output(s) in the output list",
+            "nonce-id": "f072eb54309e98671b4397728fe97f3d176c724fdee1f5f2bd74deb5080abd5e"
+        },
+        {
+            "id": "OBPPV3/CM03",
+            "description": "Select inputs such that the amount of change in the transaction is close to the size of the desired spend",
+            "nonce-id": "4dfe4a43712091382a3b08745942d1d9c123db3a782cb0f0953db1a3f9a0f608"
+        },
+        {
+            "id": "OBPPV3/CM04",
+            "description": "Use multiple change outputs, and intentionally set the value of some outputs to values that resemble plausible spends",
+            "nonce-id": "585acc1ac4c06437693d9b978d410b3801232138e80afe8a4e41acc912c2a286"
+        },
+        {
+            "id": "OBPPV3/CM05",
+            "description": "Use standardized ordering of inputs and outputs",
+            "nonce-id": "435b2cadf47f667d5faf7a188a59f248e63493147ef3912176a874d65a254c09"
+        },
+        {
+            "id": "OBPPV3/CM06",
+            "description": "Avoid routinely creating outputs that are identifiable by their size or script",
+            "nonce-id": "51ec575d396c5d8bfc55803e8fbf4891181f0e59929574123004d50d78808ac8"
+        },
+        {
+            "id": "OBPPV3/CM07",
+            "description": "Only create transactions which are compliant with BIP-62",
+            "nonce-id": "9a040aded5a26a06ee92e917a688a2973da1643c30fe340f04c3abbff67fdd48"
+        },
+        {
+            "id": "OBPPV3/CM08",
+            "description": "Calculate fees using a method which is not recognizably unique to a particular client",
+            "nonce-id": "90fcb7a2cd3be16e4376496773a917c8f067d3b8bbb570ba9a53e47a1ec6f368"
+        },
+        {
+            "id": "OBPPV3/CM09",
+            "description": "Create the transaction in such a way that provides multiple possible matching sets between inputs and the user's change output(s)",
+            "nonce-id": "0b751ead55c53393e70c324a1e4da78a9ae2c565eff4474ff01fd13fca34a7b9"
+        },
+        {
+            "id": "OBPPV3/CM10",
+            "description": "Avoid using inputs from different addresses in the same transaction",
+            "nonce-id": "1b8a9414bc6b2fc3ab4a7f28359d6b6e33919815d76e7cf4a5f1411aaf6aa15f"
+        },
+        {
+            "id": "OBPPV3/CM11",
+            "description": "Use mixing when sending transactions, and make non-mixed transactions resemble mixed transactions",
+            "nonce-id": "c0933c692a76d18c3c20f6346eb4a02ba703b5ac12cb6c060a05e2a29cd6000f"
+        },
+        {
+            "id": "OBPPV3/CM12",
+            "description": "Use the same type of script used for change output as for the desired spend when creating transactions",
+            "nonce-id": "20de0af282762741c3682768c91f936496a6b5fe26f697bb78cc90bae973debf"
+        },
+        {
+            "id": "OBPPV3/CM13",
+            "description": "Avoid constructing transactions that contain inputs from more than one identity/account",
+            "nonce-id": "fd4fd758a6ec43d9643b71ba90cf0256261433c754d22f1de09ae8d227831ac5"
+        },
+        {
+            "id": "OBPPV3/CM14",
+            "description": "Sign transactions using techniques that do not reveal the number of signers or keys involved in producing the signature",
+            "nonce-id": "59712e84921730ac91cd8edabf5d1c9d045eb4e0f72648bcdab54c19c05a3bdd"
+        },
+        {
+            "id": "OBPPV3/CM15",
+            "description": "Introduce random delays before introducing new transactions to the network",
+            "nonce-id": "ee2a22b5ad3fe15ae7430e262423c48ceeb1fcb3f2141534c08279814c76c71f"
+        },
+        {
+            "id": "OBPPV3/CM16",
+            "description": "Obtain relevant blockchain data without making queries to other network participants",
+            "nonce-id": "16105562d1445b9b15fbeb2f4baa929447e78c71d358b0c22d2df5de8e62a605"
+        },
+        {
+            "id": "OBPPV3/CM17",
+            "description": "Only query one address at a time from a specific connection context",
+            "nonce-id": "d823f2dd9e93f8064d89e170ae95ae60743bf178825f7a14ae35dcdc9f4911aa"
+        },
+        {
+            "id": "OBPPV3/CM18",
+            "description": "Query multiple addresses at once using a technique that returns false positives",
+            "nonce-id": "3585e1d272b81ae6721123b112a977350b60d118d1394e5f01b94aaf13557cbc"
+        },
+        {
+            "id": "OBPPV3/CM19",
+            "description": "Connect to the source of relevant blockchain data in a manner that does not leak the IP address of the requestor",
+            "nonce-id": "9970bd72a7e132e3650db2e1c547172733cdf89dd045481124f6130d93aaa47a"
+        },
+        {
+            "id": "OBPPV3/CM20",
+            "description": "Route outgoing transactions via a method that does not reveal the IP address of the sender",
+            "nonce-id": "797090dd00d11157408f5c11bc4d55bcf95a281fae925f732900edafbb53e096"
+        },
+        {
+            "id": "OBPPV3/CM21",
+            "description": "Broadcast outgoing transactions in a manner that causes them to appear to have a network origin distinct from previously-broadcast transactions",
+            "nonce-id": "fec92065d9fd308a9cb496da5e3302843b614347ac8901a6b242ced8f3726a3f"
+        },
+        {
+            "id": "OBPPV3/CM22",
+            "description": "If a filter requires an update, send the new filter to a different peer than the peer which has the old filter",
+            "nonce-id": "eb0dc1462a3d90740def288f8407a3501032a00d92d8ef1926b60778a6a20d86"
+        },
+        {
+            "id": "OBPPV3/CM23",
+            "description": "Route outgoing transactions through a different route than through the peer which is providing relevant blockchain data",
+            "nonce-id": "06c9f3f3cf6304568134f64cb27f622c44a73e40c24fe2730164dfbb700b2e73"
+        },
+        {
+            "id": "OBPPV3/CM24",
+            "description": "Use separate filters, provided to different peers, for each identity",
+            "nonce-id": "a7a4fce9206445df49eb832d9ab99f5439cf4eaf4504734da8ad95a8cb621b13"
+        },
+        {
+            "id": "OBPPV3/CM25",
+            "description": "Use separate routes for outgoing transactions associated with each identity",
+            "nonce-id": "bc7706d9d531aa0674f41d4ce47004b2a95bdeb6c1579231e698504380a523fb"
+        },
+        {
+            "id": "OBPPV3/CM26",
+            "description": "Avoid leaking information about user behavior via observable network traffic",
+            "nonce-id": "1bf56974c85dc4d5ce92e4ebaf173f66035f03631a47ea55af794dae8e1749cc"
+        },
+        {
+            "id": "OBPPV3/CM27",
+            "description": "Avoid leaking information about recipients in transaction via an external network lookup",
+            "nonce-id": "bf46260073101753fd16f6b3db67d7b18e2eeb147706c4c922f68a61f3700220"
+        },
+        {
+            "id": "OBPPV3/CM28",
+            "description": "Avoid using one distinctive user agent when connecting to the Bitcoin network",
+            "nonce-id": "7607066165ca50730b6df536a3b08818e47ad7b1c811d832041b0de039c51553"
+        },
+        {
+            "id": "OBPPV3/CM29",
+            "description": "Avoid using a non-Bitcoin network protocol that leaks information about the type of client in use",
+            "nonce-id": "81cbfc2b072d724c376bce049f0ae1041f41d6179a7ae045e53a0f569bf85373"
+        },
+        {
+            "id": "OBPPV3/CM30",
+            "description": "Avoid communicating state-based information to other entities which could be used to uniquely identify the client",
+            "nonce-id": "bb40b47a21675a231c9fb0bb33d9f316e26590a473d481c4e9be3a3d101f8fa9"
+        },
+        {
+            "id": "OBPPV3/CM31",
+            "description": "Avoid performing queries to third party services regarding specific transactions in a manner which reveals the IP address of the user",
+            "nonce-id": "c8eedfc7add5c500eae3227e265983e480a21d9985a5c9fc51d3b6d67f28624d"
+        },
+        {
+            "id": "OBPPV3/CM32",
+            "description": "Pin the expected public key/certificate in the client to prevent successful MITM attacks",
+            "nonce-id": "56c04d497f9587a4465ce50ae567e215a207da7d769b6261799630b5eb86c5bb"
+        },
+        {
+            "id": "OBPPV3/CM33",
+            "description": "Do not transmit out-of-band notifications to a user when a transaction has been received",
+            "nonce-id": "39c48dddef2b01e36ecc9df10796368c2ff45a3b2fe5f835de083c6474d83f39"
+        },
+        {
+            "id": "OBPPV3/CM34",
+            "description": "Transmit out-of-band notifications via a method that is not detectable to a network observer",
+            "nonce-id": "12d385c1a9cce35254a53441f36459ff7fb414afb76a12ad86687025a193c72f"
+        },
+        {
+            "id": "OBPPV3/CM35",
+            "description": "Avoid broadcasting more than one version of a transaction",
+            "nonce-id": "8f1ac060930a5fe4286ce57d1096ef51b63a65a6dd36926a0cbb89c427473aeb"
+        },
+        {
+            "id": "OBPPV3/CM36",
+            "description": "Broadcast outgoing transactions in a manner that is not easily correlated to the wallet provider",
+            "nonce-id": "00ca68296c4e8299c4c5d1ed59972ac898338f3a18b9c792ac3bf4b19a8799fc"
+        },
+        {
+            "id": "OBPPV3/CM37",
+            "description": "Use multiple identities/accounts to allow funds associated with one transaction participant to be kept apart from funds associated with a different transaction participant",
+            "nonce-id": "ea93930c2d1bdc2377c850d394ef83151150540405f29767b89338f7807447af"
+        },
+        {
+            "id": "OBPPV3/CM38",
+            "description": "Whenever an input is selected from a set of inputs with identical scripts, always include all inputs from that set in the transaction",
+            "nonce-id": "3273a293bc5c49055f3c9875ae338c33bf1d646f7935b9ed8099663a0ff9cc5f"
+        },
+        {
+            "id": "OBPPV3/CM39",
+            "description": "Use mixing protocols which are secure against misbehavior by any participant",
+            "nonce-id": "db47dade197f8ffd63eccd122de698f998da14e7a6ac41420eb83f46cd9def58"
+        },
+        {
+            "id": "OBPPV3/CM40",
+            "description": "Do not require users to provide information to one or more other parties in order to complete the signing process in a way that allows the other parties to identify the source or destination of the transaction",
+            "nonce-id": "3f301ed8b1c83aa57077b404362dc845ef2e5dfb6065d0b7d146484f76494183"
+        },
+        {
+            "id": "OBPPV3/CM41",
+            "description": "Avoid protocols for transferring payment instructions which leak information about transactions originating from entities other than the intended sender",
+            "nonce-id": "7095f1333780e51e8d15681bd64f3699c78839e1f9d8dcbb4593240d7d2388b3"
+        },
+        {
+            "id": "OBPPV3/CM42",
+            "description": "Provide a GUI that resembles an application other than a Bitcoin wallet",
+            "nonce-id": "3d479f1c06c51e00d75d7bcc3c51bba57a992ea2dfcfc2afd099372c0c103706"
+        },
+        {
+            "id": "OBPPV3/CM43",
+            "description": "Before or when displaying it, warn users about the privacy consequences of sharing data that can allow parties who will not be participants in the relevant transactions to link them to the user",
+            "nonce-id": "fea09c89d4e0a4820931a0a0f8923969a5b1b767dbfcad49b61f78af6de8b0ab"
+        },
+        {
+            "id": "OBPPV3/CM44",
+            "description": "Install the application is such a way that it is not detectable unless user performs a series of actions unlikely to be duplicated by an unauthorized user",
+            "nonce-id": "aa2d6bd66f83cb7a65af511cfc42990d3d41008bf7820782f376de197a8dac06"
+        },
+        {
+            "id": "OBPPV3/CM45",
+            "description": "The user can easily erase the application and all its metadata if the decide to stop using the wallet or device",
+            "nonce-id": "42517f9cb000b8d3951bede96702be8b7602222b7fcc014a2fa661be1616c757"
+        },
+        {
+            "id": "OBPPV3/CM46",
+            "description": "If user loses physical control over the device, the wallet can be deleted via remote command",
+            "nonce-id": "93fc4fa4ef965850e225bb78a94d5ef31988d1428f8f3bd7da7661c05003f61a"
+        },
+        {
+            "id": "OBPPV3/CM47",
+            "description": "Persistent wallet data is stored in a fashion that is not identifiable as belonging to a Bitcoin wallet",
+            "nonce-id": "58354b2f6f1e794e63bd1844c71c5810fd40140e7553f02def06c8ad75d02543"
+        },
+        {
+            "id": "OBPPV3/CM48",
+            "description": "Encrypt all public keys in the wallet",
+            "nonce-id": "b5703eb1bd5e6a3737bb4508b7ed82ae7d1f6f84a453b7b0391547f515b34c47"
+        },
+        {
+            "id": "OBPPV3/CM49",
+            "description": "Encrypt all non-keypair wallet metadata",
+            "nonce-id": "a26e95124a6cd89280fa1ac1d32816688c2a31614581fb62fbaedc95068c6155"
+        },
+        {
+            "id": "OBPPV3/CM50",
+            "description": "Use strictly local wallet backups, or encrypt remote wallet backups",
+            "nonce-id": "f30fe9e51ed5d65008cfd08241eafa27a93b9242f570b51bc517b28349fa2f94"
+        },
+        {
+            "id": "OBPPV3/CM51",
+            "description": "Do not collect any personally identifying information from the user",
+            "nonce-id": "3edddfb8c54ae207f79b8d8af1a4b504e47746b70b212b528db65b287b01070a"
+        },
+        {
+            "id": "OBPPV3/CM52",
+            "description": "Only send debug information if users opt-in and are allowed to review the information before being sent",
+            "nonce-id": "33f282adadb8055969c3ac3a8368492fcd2fa89cc035745a3d15aa2aa71ecdb4"
+        },
+        {
+            "id": "OBPPV3/CM53",
+            "description": "Transmit usage and/or debug data via a method that does not reveal the IP address or identity of the user",
+            "nonce-id": "403c9dc5e4c5fdde7bdc2309de45ffe518e9a1707ac59cec253532b6e3e67bb2"
+        },
+        {
+            "id": "OBPPV3/CM54",
+            "description": "Provide non-obfuscated source code and build tools needed for the users to compile their own versions",
+            "nonce-id": "505025ee466c1a30d70c7eb521657db594b76b659e0c4ef70739a091a9801530"
+        },
+        {
+            "id": "OBPPV3/CM55",
+            "description": "Provide a deterministic build system that allows users to verify that the binary version they have received was compiled from the public source code",
+            "nonce-id": "fbbb0c4c77661dbdd2da52225e8a9aa42aa784699062c25b1161ac8f4a9c7c2f"
+        },
+        {
+            "id": "OBPPV3/CM56",
+            "description": "Use eternal backups",
+            "nonce-id": "a1105cde8ea2d45d7a7dc6fc4ab80fa22f160f9fa60c79dff3dcee6554cdba83"
+        },
+        {
+            "id": "OBPPV3/CM57",
+            "description": "Proactively inform users when backups require an update",
+            "nonce-id": "0020dc5057a8a9b5e464b854f74b42f7017cd5f7dcd633b2b010ec7f7b8d1799"
+        },
+        {
+            "id": "OBPPV3/CM58",
+            "description": "Use mixing methods that do not allow for theft of funds",
+            "nonce-id": "af9d41094aaf3f2222b1288397a76ffeaee692f7dcfde81636c638916bcc07c8"
+        },
+        {
+            "id": "OBPPV3/CM59",
+            "description": "Use deposit addresses derived from a constant seed using ECDH (e.g. stealth addresses)",
+            "nonce-id": "0bc3ef2be1a5d4a9ea8019003264694a55ad207bb47317b0e284c51cfe3599c7"
+        },
+        {
+            "id": "OBPPV3/CM60",
+            "description": "Create wallets that are easily usable on operating systems with built-in Tor support",
+            "nonce-id": "fc4c0f26fde5d16374100c15ee3e4a27a701907f558a9d41d252127bc8a68ed7"
+        },
+        {
+            "id": "OBPPV3/CM61",
+            "description": "Perform multiple queries for blockchain data in a way that makes it difficult to correlate the queries with one another",
+            "nonce-id": "493b8e64e550c9f3fac6517206b47d8c121f53f766376979800a8a71bede85a2"
+        }
+    ],
+    "criteria": [
+        {
+            "id": "OBPPV3/CR01",
+            "description": "Number of clicks required to deviate from the default receiving functionality and generate a new non-ECDH receiving address for an existing wallet",
+            "nonce-id": "2487f746faedb396d03f9fb9d519bff8a7ecced291300e98b5c570ffcc581b27"
+        },
+        {
+            "id": "OBPPV3/CR02",
+            "description": "Number of clicks required by user to generate a ECDH receiving address (BIP 63 or BIP 47), from the default window/authenticated home page",
+            "nonce-id": "41153efaf984012ed6be4eadf253e50a54cd01bf20c71070e7a64dd70214c653"
+        },
+        {
+            "id": "OBPPV3/CR03",
+            "description": "Non-ECDH receiving addresses are hidden from the default Receive worflow screens once they have been used",
+            "comment": "If the wallet client hides used non-ECDH addresses from view by default but allows the user to expose them in default Receive workflow screens e.g. via an 'Unhide' button, it will fail this criterion",
+            "nonce-id": "ac41c38f127d85145c3323cd93f786ace5f30657542e93ea1cd217ba2ecfd26e"
+        },
+        {
+            "id": "OBPPV3/CR04",
+            "description": "Preemptively indicates a loss of privacy when user elects to receive funds at a previously-used non-ECDH address, or prohibits this operation entirely",
+            "comment": "This is separate from the scenario in which a user accidentally reuses a non-ECDH receiving address as a result of a failure of criterion OBPPV3/CR03",
+            "nonce-id": "9fd904a3645f75b5578835ecee7a8191a8c70c55f4ae935f1b0be07a97190fda"
+        },
+        {
+            "id": "OBPPV3/CR05",
+            "description": "Number of clicks required to deviate from the default change functionality and receive change at a newly generated address",
+            "nonce-id": "9f1b29a6975b8d894e4dc0331256951c3c349b29b0f74af0e1caa38f734fdb53"
+        },
+        {
+            "id": "OBPPV3/CR06",
+            "description": "Produces P2SH change addresses when one or more of the spend outputs in a transaction is P2SH",
+            "nonce-id": "0b9e84a58167c878967f8420496f303ae19d5c65722ad5b7e2511b2356d12848"
+        },
+        {
+            "id": "OBPPV3/CR07",
+            "description": "Change addresses are hidden from the normal receiving workflow by default to discourage using them as receiving addresses",
+            "nonce-id": "ead0da1f4b349139e2a8451f296f7bdc1ee8622583c3c8c00fd94ff28d3187bc"
+        },
+        {
+            "id": "OBPPV3/CR08",
+            "description": "Preemptively indicates a loss of privacy when user elects to reuse change addresses as receiving addresses, or prohibits this operation entirely",
+            "comment": "A wallet client may pass OBPPV3/CR07 but fail OBPPV3/CR08 by not warning a user when a change address is selected for reuse outside of the normal Receive workflow",
+            "nonce-id": "1543c6375a969090ff45e138935d252b9199b23ae7c57de2f760e5b6eb1df252"
+        },
+        {
+            "id": "OBPPV3/CR09",
+            "description": "When an outgoing transaction must merge inputs, and when mixing is not being used, the transaction constructed in a way that plausibly resembles a mixing transaction",
+            "nonce-id": "672c25ffa6410af70d4f9261d86b55a5b666d542554024a15413c2973ba13b9c"
+        },
+        {
+            "id": "OBPPV3/CR10",
+            "description": "Inputs and outputs are ordered in a deterministic manner based on criteria other than the status of outputs as spends or change (BIP 69)",
+            "nonce-id": "dda1d735096d4211ff1f8324a95d3094d1442eedeb08c0bc0b942d7630543ccd"
+        },
+        {
+            "id": "OBPPV3/CR11",
+            "description": "Order inputs and outputs via a methodology common to multiple wallets",
+            "nonce-id": "57307e5922e21ec5ef98da8e3af26e303b4f16c56061851530095a3db86214d5"
+        },
+        {
+            "id": "OBPPV3/CR12",
+            "description": "When an input is selected which is part of a set of unspent outputs containing identical scripts (multiple deposits to a single address), every output in the set is added to the transaction",
+            "nonce-id": "33dc2f497e9fcbb49804fffefa594e27b6b2dbfbb53529016975f2ae38f88249"
+        },
+        {
+            "id": "OBPPV3/CR13",
+            "description": "All transactions created by the wallet are compliant with BIP 62",
+            "nonce-id": "662c501c727e446dff69c92bb6568d9ca7b3c8ae87cfdc926143de040bfd372b"
+        },
+        {
+            "id": "OBPPV3/CR14",
+            "description": "Allows the user to send to ECDH addresses (BIP 63 or BIP 47)",
+            "nonce-id": "4d2dab0536453425ea0f0851905b9cc997fdbe362141496afad3b416120d8049"
+        },
+        {
+            "id": "OBPPV3/CR15",
+            "description": "Outside of a mixing transaction, preemptively indicates a loss of privacy when merging inputs from different addresses in the same transaction",
+            "nonce-id": "b2d3c86c48913fa24ce6bbae63fdabc7f494bd56dc5d8c9be71af878072279db"
+        },
+        {
+            "id": "OBPPV3/CR16",
+            "description": "Warns user when sending to a non-ECDH address that the user has sent to before",
+            "nonce-id": "07778403336aa13c2e78639072643f6e2e95f3871c9cc040650f8495f7538198"
+        },
+        {
+            "id": "OBPPV3/CR17",
+            "description": "Warns user when sending to a non-ECDH address that has received deposits from any source",
+            "nonce-id": "f914ea1d98503110ed0c60fca6d7eca2b3c97b6316122003c2d04ff1b1192f92"
+        },
+        {
+            "id": "OBPPV3/CR18",
+            "description": "Number of clicks required by user for inputs/outputs to be mixed with one or more other users",
+            "nonce-id": "7073d257e523feab35d34ba8ee8cd956c06140fee5d7fe09db11560e92eacf62"
+        },
+        {
+            "id": "OBPPV3/CR19",
+            "description": "Average number of other users whose funds are mixed with the client user's when sending through a mixing process",
+            "nonce-id": "26238134ad9a2ba3069fb7700fd9fca5df6b06a93dc7b01af442a6ab9bacddde"
+        },
+        {
+            "id": "OBPPV3/CR20",
+            "description": "Mixing transactions are constructed in a manner that makes them indistinguishable from non-mixing transactions",
+            "nonce-id": "1b1881ac51a03537a8c51232637d4c6ca0f0ce15c5b16b58f36dba7f222dc380"
+        },
+        {
+            "id": "OBPPV3/CR21",
+            "description": "Warns the user when a proposed mix is easy to reverse",
+            "nonce-id": "0714ae331a3c8a4c92ee4609629ae8cd5929d265aa6df053093aba2786481eee"
+        },
+        {
+            "id": "OBPPV3/CR22",
+            "description": "Number of clicks to opt out of creating recurring transactions, such as for donations to the wallet provider",
+            "nonce-id": "d52bc17298a244abd667ec80df7828d1e9295caa5d0e479082eaf0741c28dd57"
+        },
+        {
+            "id": "OBPPV3/CR23",
+            "description": "Avoids creating recurring transactions with outputs of a known value or to a known non-ECDH address",
+            "nonce-id": "6822ef5809e49d09d60f302758e83c46aa3c6384eea86b1b976c15372e94a59a"
+        },
+        {
+            "id": "OBPPV3/CR24",
+            "description": "Number of clicks required by user to to obtain balance information without leaking their machine identity over the network",
+            "nonce-id": "d594bb5bc8f342b8794072a48bffe36cdfe142dd19a4773e46abbfc931083a9f"
+        },
+        {
+            "id": "OBPPV3/CR25",
+            "description": "Balance information is obtained from a local copy of the blockchain",
+            "nonce-id": "e9d26b9622bbc535f5625505cf2e4924847058b97e055323a332f82ed24bf067"
+        },
+        {
+            "id": "OBPPV3/CR26",
+            "description": "Balance information is obtained by making queries to other network participants that do not include multiple addresses in a specific connection context",
+            "nonce-id": "bba9be9cd221ff2b40afa74dcc424d420fb30120f2c0a0f007bdd07c66f1c054"
+        },
+        {
+            "id": "OBPPV3/CR27",
+            "description": "Balance information is obtained via a method that matches a fraction of the blockchain beyond the addresses belonging to the wallet",
+            "nonce-id": "16b6ab28cba33110aebdac4a1c1309a5c31a599f31e641d9a46d718f1ad31db1"
+        },
+        {
+            "id": "OBPPV3/CR28",
+            "description": "If balance information is obtained via querying more than one address in a given query, a separate connection context is used for each unique query",
+            "nonce-id": "eaa21085ff84067e245a2f48ed6c6b27c23040163a7b87ea1f0ab93b2d715489"
+        },
+        {
+            "id": "OBPPV3/CR29",
+            "description": "Provides a visual indication if the balance information is not being obtained through an anonymizing network, including IP address information",
+            "nonce-id": "39a6395c7e93ac44cde490d1970b0b6fb1dd812f2d8c5c83fff7e6f8839afd69"
+        },
+        {
+            "id": "OBPPV3/CR30",
+            "description": "Number of clicks required by user to route outgoing transactions through an anonymizing network",
+            "nonce-id": "38f7af6acef5a9934dedaa8f5f9d286c2fb56ac502edd1c96b087e7f1cf29ba8"
+        },
+        {
+            "id": "OBPPV3/CR31",
+            "description": "Outgoing transactions are routed through a different entry point into the network than the source of balance information",
+            "nonce-id": "3062c4004edebbcd23f7e2688889994d119f1dd4df2c2f95755bd2f1446573bc"
+        },
+        {
+            "id": "OBPPV3/CR32",
+            "description": "Client provides a visual indication if outgoing transactions are not being routed through an anonymizing network, including IP address information",
+            "nonce-id": "03c78bc29d7dd4772c45e6c68352e6738bd72e61c1002b0940f11670127e8a12"
+        },
+        {
+            "id": "OBPPV3/CR33",
+            "description": "Avoids including addresses from multiple identity containers in the same balance query",
+            "nonce-id": "3252f80071182ed6d8dd10454897d1cd72a663fa35ea54bf80c6c5dced1f5cc5"
+        },
+        {
+            "id": "OBPPV3/CR34",
+            "description": "Avoids broadcasting outgoing transactions from different identity containers via the same connection context",
+            "nonce-id": "5311c3761e9b5856598af7256df449edc77dc4635ca69a46b6407f4a47aeeb36"
+        },
+        {
+            "id": "OBPPV3/CR35",
+            "description": "The backup process avoids leaking information about wallet addresses",
+            "comment": "One wallet client previously generated e-mail alerts whenever a new change address as a result of sending bitcoin.",
+            "nonce-id": "24e8bbdcff699cd48bdcef1774a3b82a038038a345260a904d779056dae31d82"
+        },
+        {
+            "id": "OBPPV3/CR36",
+            "description": "Wallet avoids leaking information about recipients via an external identity lookup",
+            "nonce-id": "48aa7f4307f29fc6247ceb992b9636854b34d00c4fac7893b62667326bbb3873"
+        },
+        {
+            "id": "OBPPV3/CR37",
+            "description": "The wallet avoids observably connecting to a known endpoint, such as a wallet provider's domain",
+            "nonce-id": "0471fd0d45eb36c31390bd48af829107c81dc0129a5dad0a01c4508cc339ad04"
+        },
+        {
+            "id": "OBPPV3/CR38",
+            "description": "The wallet connects to the network using an unremarkable user agent",
+            "nonce-id": "f0ee30956f844b4bd9d12253157c88d0650bc99bc36bb220e454b9bb90243171"
+        },
+        {
+            "id": "OBPPV3/CR39",
+            "description": "The wallet connects to the network using a random user agent, from a set of unremarkable user agents, for each connection",
+            "nonce-id": "87f0ac49d56c92087dd43cf5c2cd21596ae4dcb88b3e52ce664cf5163bcde096"
+        },
+        {
+            "id": "OBPPV3/CR40",
+            "description": "Included in the latest stable version of Tails Live CD",
+            "nonce-id": "175f9eee77a799724ce92547a439047f6e650291e965af9ee4ded67a493f47ee"
+        },
+        {
+            "id": "OBPPV3/CR41",
+            "description": "Program and any dependencies are packaged into a single file which can be easily installed in Tails Live CD",
+            "nonce-id": "c2a7e3cc1ffd73f41e61cea73961797aadc2b2bace7a0573bb63492ff32e7c7b"
+        },
+        {
+            "id": "OBPPV3/CR42",
+            "description": "Installation in Tails Live CD is possible, but requires multiple complex steps",
+            "nonce-id": "6d6c357296767edbf1409285b595e975cb12a56915dad3f3b63d84359d37220f"
+        },
+        {
+            "id": "OBPPV3/CR44",
+            "description": "Number of clicks to create a new identity container from the home screen of an existing identity container",
+            "nonce-id": "bf25cd7e62ecc64aa5fd964c579a9a3c9a2617b7cf1aa3ee9ed6eafbca5cdc6c"
+        },
+        {
+            "id": "OBPPV3/CR45",
+            "description": "Number of clicks to assign an imported private key into an identity container",
+            "nonce-id": "b531b43871c89961b2a73c50364bab7660053a5cbdc1b75fca10a792d1736287"
+        },
+        {
+            "id": "OBPPV3/CR46",
+            "description": "Avoids creating transactions which contain inputs from different identity containers, except optionally if the user has intentionally overridden this behavior",
+            "nonce-id": "2e54baaff1e94c4930b43264b060bce49bd4d78822441d39f704916cc5aac398"
+        },
+        {
+            "id": "OBPPV3/CR47",
+            "description": "Visually indicates when inputs from different identity containers are merged before the transaction is broadcast, or prohibits this operation entirely",
+            "nonce-id": "c5672ce56911441643c627306a201815d34dd01ca879cfa76a98aa4cd9f2a31b"
+        },
+        {
+            "id": "OBPPV3/CR48",
+            "description": "Mixing is secure against correlation attacks by the facilitator",
+            "nonce-id": "0f2c4a66316a42c998ea5ba46c0ceca0595ee53c66959a8e4a6f934a6f75918b"
+        },
+        {
+            "id": "OBPPV3/CR49",
+            "description": "Mixing is secure against theft of funds",
+            "nonce-id": "dbbed003a5ee1f460c0eb61c273eb8128dc3a8cc0c92d66059a744b5e1700715"
+        },
+        {
+            "id": "OBPPV3/CR50",
+            "description": "Number of clicks to configure the GUI to resemble a non-wallet application",
+            "nonce-id": "fa53ee67e27b960464b55f76095bc4a9bf8cbc1363d8d2ee715b021b9f0d746b"
+        },
+        {
+            "id": "OBPPV3/CR51",
+            "description": "Does not display non-ECDH addresses or transaction hashes in any form prior to the user explicitly requesting to see them",
+            "nonce-id": "07ac2b60d129ea807841d9ee552d467cbf886747737699d073ba3db69ad51285"
+        },
+        {
+            "id": "OBPPV3/CR52",
+            "description": "Number of clicks to set an encryption password/PIN for wallet public keys (apart from that needed to encrypt private keys)",
+            "nonce-id": "baf5bdb47105a1f98ddf51b9852062722ae5387e835a03038f52bdfed5c68824"
+        },
+        {
+            "id": "OBPPV3/CR53",
+            "description": "Number of clicks to set an encryption password/PIN for non-keypair wallet metadata (apart from that needed to encrypt private keys)",
+            "nonce-id": "c55c394d7fdb867a2dd83dff73e5416e2585057586302c2256e8a6f8dc9ae651"
+        },
+        {
+            "id": "OBPPV3/CR54",
+            "description": "Number of clicks needed to permanently and completely erase the wallet from a device",
+            "comment": "Wallet data is considered erased if it cannot be evidenced using the privileges of the user account that installed the wallet client, or any other user account with default privileges",
+            "nonce-id": "e157bce4222167924c532205b40a7992a3ac1f1f9de36a4f9980e5281c033ad3"
+        },
+        {
+            "id": "OBPPV3/CR55",
+            "description": "Number of clicks needed to permanently and completely remove the wallet application from a device",
+            "comment": "The wallet application is considered removed if it cannot be evidenced using the privileges of the user account that installed the wallet client, or any other user account with default privileges",
+            "nonce-id": "b5f8660f835d1738b73d8c65e14a0164a00e731bb0176688ab80a998efc4670e"
+        },
+        {
+            "id": "OBPPV3/CR56",
+            "description": "Wallet data can be remotely deleted by the user in the event the device containing the wallet is lost or stolen",
+            "comment": "Wallet data is considered deleted if it cannot be evidenced using the privileges of the user account that installed the wallet client, or any other user account with default privileges",
+            "nonce-id": "05b2d6604ec7520f9eb45b3d18bb04340f8cb415a4516e31b76e22c9fcd0cd7b"
+        },
+        {
+            "id": "OBPPV3/CR57",
+            "description": "The wallet application is difficult to detect as being installed unless the user performs a series of actions unlikely to be duplicated by an unauthorized user",
+            "comment": "The wallet client is considered difficult to detect if it cannot be evidenced using the privileges of the user account that installed the wallet client, or any other user account with default privileges",
+            "nonce-id": "bd525d9750a9e913d662da987b41b4327692073df4fa08a7e9729202d21a2d33"
+        },
+        {
+            "id": "OBPPV3/CR58",
+            "description": "When logged into the user who previously installed the wallet application or another user with default privileges, the user cannot detect that the wallet was previously installed once the application removal process is completed",
+            "comment": "Evidence is considered eliminated if it cannot be evidenced using the privileges of the user account that installed the wallet client, or any other user account with default privileges. This does not include non-standard accounts, such as admin accounts unlocked via rooted methods on mobile devices",
+            "nonce-id": "01cbe777a3abea219a15924080a4110a99c7c49057c9f5c274ea99dfc9b9dfef"
+        },
+        {
+            "id": "OBPPV3/CR59",
+            "description": "The wallet deletion process eliminates all evidence that a wallet was previously installed",
+            "comment": "Evidence is considered eliminated if it cannot be evidenced using the privileges of the user account that installed the wallet client, or any other user account with default privileges",
+            "nonce-id": "cae67a1a0304b1a9f30d194953f0470146d82a5a26a194bc915ed2e6d322b69b"
+        },
+        {
+            "id": "OBPPV3/CR60",
+            "description": "Persistent wallet metadata is stored in a form not identifiable as belonging to a Bitcoin wallet",
+            "nonce-id": "d8d82a51f925703305d00cef69fc624bb92b12d9c134c1df04ec597a6f803c7c"
+        },
+        {
+            "id": "OBPPV3/CR62",
+            "description": "Number of clicks needed to update an existing backup due to the creation of a new receiving or change address",
+            "nonce-id": "40469102b1740a6b0e133190617f8db0c1f3821ffa9c7840c02b88b571279497"
+        },
+        {
+            "id": "OBPPV3/CR63",
+            "description": "Backups can occur offline, or are encrypted client-side with data that only the user controls e.g. password",
+            "nonce-id": "c3758e4e21e602d84dd044b2b7b602dd8a1d0c11881520ee1a58349a80f84f90"
+        },
+        {
+            "id": "OBPPV3/CR64",
+            "description": "Indicates a reduction in wallet safety when backups are stale, or uses eternal backups",
+            "nonce-id": "b843dc46758788ea84d1f2afcb0d7741877fa28a6a6fed6e4b361b6d9cd1e575"
+        },
+        {
+            "id": "OBPPV3/CR65",
+            "description": "The wallet functions without requiring the user to supply Class I, Class II, or Class III personally identifying information (PII)",
+            "comments": "Class I: Highly sensitive, validated information: SSN, National Identification Number, Verified Full Name, Verified Mailing Address of Residence or Business, Passport number, vehicle registration number, driver's license number, biometric data, verified credit card number, verified SMS number with common free virtual SMS numbers blocked (any of first 5 tries blocked). Class II: For most users, directly tied to their personhood, but can be created ephemeral easily: verified email address, date of birth, birthplace, verified SMS number without common free virtual SMS numbers blocked. Class III: For most users, directly tied to their personhood, but can be lied about easily: unverified email address, unverified zip/postal code, unverified gender, unverified race",
+            "nonce-id": "529e5b9fb67740fc8de8ce5d2b681ea15a1fbaac057c00214541a33cd81f37dc"
+        },
+        {
+            "id": "OBPPV3/CR66",
+            "description": "Number of clicks needed to disable sending telemetry data to the wallet provider (usage statistics, automatic crash reporting, etc.)",
+            "nonce-id": "25d245ff46b7c046b4b5d7c1e7e3cbbe684d59492d026209d22e49918afa45d7"
+        },
+        {
+            "id": "OBPPV3/CR67",
+            "description": "Number of clicks needed to ensure telemetry data is sent to the wallet provider in a manner that does not reveal the IP address of the user",
+            "nonce-id": "f966e566558d88cbd9931e9662cfbbbbab6986cf0daddfe62a91d5835e797a9f"
+        },
+        {
+            "id": "OBPPV3/CR68",
+            "description": "Avoids transmitting telemetry data to the provider before the user has a chance to review the information being sent",
+            "nonce-id": "52adf80b2d68cff291a372fb33228b725744829a39793b00877154ade282e715"
+        },
+        {
+            "id": "OBPPV3/CR69",
+            "description": "The wallet provider supplies simple instructions for building a usable binary from the source code",
+            "nonce-id": "c6c4523648996a95d3d9436aeff46b11c85cd46765d1df1ace370438754f5855"
+        },
+        {
+            "id": "OBPPV3/CR70",
+            "description": "Non-obfuscated source code for the wallet application is available for immediate inspection",
+            "nonce-id": "2962fa537ab4b70651f21a2d0a8c82c9ad5668663d72755f67d414fb17e2a3f5"
+        },
+        {
+            "id": "OBPPV3/CR71",
+            "description": "A user can produce a compiled version of the application from the public source code that exactly matches the version distributed by the wallet provider",
+            "nonce-id": "7c4c9f038599edcac718ab458c88621c89c0e2a83eb2798f37d2db6f016d80a1"
+        },
+        {
+            "id": "OBPPV3/CR72",
+            "description": "The wallet functions without requiring the user to supply Class I or Class II personally identifying information (PII) such as a SSN or verified email address",
+            "nonce-id": "8aafa3e65acac3e678d9a9d3380dd05b18508d87a5cdbe75b612a8ac86a34bd8"
+        },
+        {
+            "id": "OBPPV3/CR73",
+            "description": "The wallet functions without requiring the user to supply Class I personally identifying information (PII) such as a SSN",
+            "nonce-id": "76e2eaa0b805ce9b3446e35f64ba4e59b0547468370529006948cc970469649d"
+        }
+    ],
+    "criteria-categories": [
+        "Usability",
+        "Quality",
+        "Feedback"
+    ]
+}
