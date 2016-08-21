@@ -1,0 +1,245 @@
+{
+    "name": "Test threat model",
+    "description": "Throws exception due to duplicate nonce-id field",
+    "attackers": [
+        {
+            "numeral": "I",
+            "name": "Ninja",
+            "weight": 2,
+            "comment": "A Ninja is twice as dangerous as a ghost.",
+            "nonce-id": "duplicate",
+            "attacks": [
+                {
+                    "numeral": "A",
+                    "name": "Punch",
+                    "weight": 1,
+                    "nonce-id": "duplicate",
+                    "countermeasures": [
+                        {
+                            "numeral": "1",
+                            "id": "NINJAGHOSTV1-CM1",
+                            "description": "Block attacks",
+                            "effectiveness": 1.0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "NINJAGHOSTV1-CR1",
+                                            "description": "Evades attacks completely",
+                                            "effectiveness": 1.0
+                                        }
+                                    ]
+                                },
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "b",
+                                            "id": "NINJAGHOSTV1-CR2",
+                                            "description": "Crosses arms in front of body when attacked",
+                                            "effectiveness": 0.5
+                                        },
+                                        {
+                                            "numeral": "c",
+                                            "id": "NINJAGHOSTV1-CR3",
+                                            "description": "Assumes fetal position when attacked",
+                                            "effectiveness": 0.1
+                                        }
+                                    ],
+                                    "comment": "You can cross your arms and assume the fetal position at the same time."
+                                }
+                            ],
+                            "comment": "You cannot assume the fetal position or block with your arms and evade attacks completely simultaneously."
+                        },
+                        {
+                            "numeral": "2",
+                            "id": "NINJAGHOSTV1-CM2",
+                            "description": "Counter-punch",
+                            "effectiveness": 0.5,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "NINJAGHOSTV1-CR4",
+                                            "description": "Throws uppercut when punched at",
+                                            "effectiveness": 1.0
+                                        }
+                                    ]
+                                },
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "b",
+                                            "id": "NINJAGHOSTV1-CR5",
+                                            "description": "Throws right hook when punched at",
+                                            "effectiveness": 0.7
+                                        }
+                                    ]
+                                }
+                            ],
+                            "comment": "You cannot throw an uppercut and a right hook at the same time. Also, uppercuts are more effective against ninjas than right hooks."
+                        },
+                        {
+                            "numeral": "3",
+                            "id": "NINJAGHOSTV1-CM3",
+                            "description": "Teleport",
+                            "effectiveness": 1.0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "NINJAGHOSTV1-CR6",
+                                            "description": "Magically relocates five feet when attacked",
+                                            "effectiveness": 0.5
+                                        },
+                                        {
+                                            "numeral": "b",
+                                            "id": "NINJAGHOSTV1-CR1",
+                                            "description": "Evades attacks completely",
+                                            "effectiveness": 1.0
+                                        }
+                                    ],
+                                    "comment": "You can both relocate and evade completely, but teleporting only five feet away is less effective by itself."
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "numeral": "B",
+                    "name": "Criticize",
+                    "weight": 0,
+                    "comment": "Criticism is not dangerous at all (weight = 0)."
+                }
+            ]
+        },
+        {
+            "numeral": "II",
+            "name": "Ghost",
+            "weight": 1,
+            "comment": "A ghost is half as dangerous as a ninja.",
+            "attacks": [
+                {
+                    "numeral": "A",
+                    "name": "Make scary noises",
+                    "weight": 1,
+                    "countermeasures": [
+                        {
+                            "numeral": "1",
+                            "id": "NINJAGHOSTV1-CM4",
+                            "description": "Assume defensive posture",
+                            "effectiveness": 1.0,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "NINJAGHOSTV1-CR7",
+                                            "description": "Wears earplugs",
+                                            "effectiveness": 1.0
+                                        },
+                                        {
+                                            "numeral": "b",
+                                            "id": "NINJAGHOSTV1-CR3",
+                                            "description": "Assumes fetal position when attacked",
+                                            "effectiveness": 0.1
+                                        }
+                                    ]
+                                }
+                            ],
+                            "comment": "You can simultaneously assume the fetal position and wear earplugs, but the former alone is not effective."
+                        }
+                    ]
+                },
+                {
+                    "numeral": "B",
+                    "name": "Drop an anvil",
+                    "weight": 10,
+                    "countermeasures": [
+                        {
+                            "numeral": "1",
+                            "id": "NINJAGHOSTV1-CM4",
+                            "description": "Assume defensive posture",
+                            "effectiveness": 0.5,
+                            "criteria-groups": [
+                                {
+                                    "criteria": [
+                                        {
+                                            "numeral": "a",
+                                            "id": "NINJAGHOSTV1-CR2",
+                                            "description": "Crosses arms in front of body when attacked",
+                                            "effectiveness": 1.0
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ],
+                    "comment": "Assuming a defensive posture when getting hit by an anvil has limited effectiveness."
+                }
+            ],
+            "comment": "Falling anvils are 10x more dangerous than scary noises."
+        }
+    ],
+    "countermeasures": [
+        {
+            "id": "NINJAGHOSTV1-CM1",
+            "nonce-id": "f28909bcfdc694c91a43dd7052bb1add2f9304458f71dd163430c94c6ebf3869",
+            "description": "Block attacks"
+        },
+        {
+            "id": "NINJAGHOSTV1-CM2",
+            "nonce-id": "64e91f011cd81e9aa1f9825d1a08027a43ed32c9ccb754478180099f44811398",
+            "description": "Counter-punch"
+        },
+        {
+            "id": "NINJAGHOSTV1-CM3",
+            "nonce-id": "e68b3b94586dd2ccec982c0106ff9d1afeb966f6f202bae67a439f04078b5b6f",
+            "description": "Teleport"
+        },
+        {
+            "id": "NINJAGHOSTV1-CM4",
+            "nonce-id": "fb5443c90a2d6ef7ce1431b4816d26915b385f4606baaa868aa28a33beabc69e",
+            "description": "Assume defensive posture"
+        }
+    ],
+    "criteria": [
+        {
+            "id": "NINJAGHOSTV1-CR1",
+            "nonce-id": "7aec0fb1e499697ded543692644d253b9dece9d03233d9d1389d736f8cb666d1",
+            "description": "Evades attacks completely"
+        },
+        {
+            "id": "NINJAGHOSTV1-CR2",
+            "nonce-id": "dc3ef37c1b71711093163d232a27fa6edbe9d43224706732dec368eae249c7af",
+            "description": "Crosses arms in front of body when attacked"
+        },
+        {
+            "id": "NINJAGHOSTV1-CR3",
+            "nonce-id": "5ce6b986248f2e8d2d9104f8aa94fe6b2a432b859659a0eaf2f97802f379550e",
+            "description": "Assumes fetal position when attacked"
+        },
+        {
+            "id": "NINJAGHOSTV1-CR4",
+            "nonce-id": "595f75519f8ec3b4d38bac58df294010147baf4df38a026efa8335b8a794cc26",
+            "description": "Throws uppercut when punched at"
+        },
+        {
+            "id": "NINJAGHOSTV1-CR5",
+            "nonce-id": "9e83dd41e4a4b999d39a9226ba506651f894cae8512ac7e90d852cc657120dc2",
+            "description": "Throws right hook when punched at"
+        },
+        {
+            "id": "NINJAGHOSTV1-CR6",
+            "nonce-id": "4a58ac513edddd717eee8670419af92534ec859b628efba3592230331e832211",
+            "description": "Magically relocates five feet when attacked"
+        },
+        {
+            "id": "NINJAGHOSTV1-CR7",
+            "nonce-id": "6dbcb4a75cc4f332f4dab3e20d7e696749cab3ad34c6e84590fd8992732b2a59",
+            "description": "Wears earplugs"
+        }
+    ]
+}
